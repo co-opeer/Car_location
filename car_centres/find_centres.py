@@ -66,8 +66,8 @@ def get_box_centers(bounding_boxes):
     return centers
 
 
-def get_car_centres(model_path,image_path):
-    model = load_model(model_path)
+def get_car_centres(image_path):
+    model = YOLO('yolov8s.pt')
     bounding_boxes = get_bounding_boxes(image_path, model)
     box_centers = get_box_centers(bounding_boxes)
     # Збереження в DataFrame для подальшої обробки

@@ -7,7 +7,7 @@ from zones.plot_zones import plot_zones_with_centers, plot_free_parking_zones
 from car_location.occupied_p_spaces import find_parking_zones
 from PIL import Image
 
-df = get_car_centres(model_path, image_path)
+df = get_car_centres( image_path)
 
 car_coordinates = list(zip(df['center_x'], df['center_y']))
 image = Image.open(image_path)
