@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from PIL import Image
 
+from const import image_path
+from zones.enum_parking_area.enum_parking_spaces import ParkingSpaces
+from zones.enum_parking_area.enum_zone_enum import ParkingZones
+
 
 # 2. Функція для побудови графіка з зображенням та зонами
 def plot_image_with_zones(image_path, zones_enum):
@@ -54,4 +58,39 @@ def plot_zones_with_centers(image_path, zones_enum, df=None):
 
     plt.axis('off')  # Прибираємо осі
 
+    plt.show()  # Відображення зображення
+
+
+
+def plot_free_parking_zones(image_path, free_zones):
+    """Функція для відображення зображення та вільних зон.
+
+    Args:
+        image_path (str): Шлях до зображення.
+        free_zones (list): Список вільних зон (координати).
+    """
+    # Відкриваємо зображення за допомогою PIL
+    image = Image.open(image_path)
+    plt.figure(figsize=(10, 8))
+
+    # Відображення зображення
+    plt.imshow(image)
+
+    # Обхід вільних зон та їх малювання на зображенні
+    for zone in free_zones:
+        # zone — це координати (список), тож беремо їх без .value
+        points = zone
+        # Масштабування координат до розмірів зображення
+        image_width, image_height = image.size
+        scaled_points = [(x * image_width, y * image_height) for x, y in points]
+
+        # Малюємо полігон на зображенні
+        polygon = Polygon(scaled_points, closed=True, fill=None, edgecolor='g', linewidth=2)
+        plt.gca().add_patch(polygon)
+
+        # Додаємо підписи зон (можна додати назву або іншу інформацію)
+        plt.text(scaled_points[0][0], scaled_points[0][1], f"Free Zone", fontsize=12, color='green')
+
+    plt.axis('off')  # Прибираємо осі
+    plt.title("Вільні паркомісця")  # Додаємо заголовок
     plt.show()  # Відображення зображення

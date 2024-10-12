@@ -33,7 +33,7 @@ def process_json(file_path):
         points = shape["points"]
         normalized_points = normalize_coordinates(points, image_width, image_height)
 
-        print(f"{label} = [")
+        print(f"n{label} = [")
         for point in normalized_points:
             print(f"{point},")
 
@@ -41,4 +41,4 @@ def process_json(file_path):
 
 
 
-process_json(r"C:\Users\PC\OneDrive\Робочий стіл\20240930_091340_2.json")
+process_json(r"C:\Users\PC\OneDrive\Робочий стіл\20241007_140916_0.json")
